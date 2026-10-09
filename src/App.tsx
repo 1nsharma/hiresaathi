@@ -13,20 +13,30 @@ import Support from './pages/Support';
 import Builder from './pages/Builder';
 import MCPConnect from './pages/MCPConnect';
 import Settings from './pages/Settings';
+import Campaigns from './pages/Campaigns';
+import Approvals from './pages/Approvals';
+import AssetLibrary from './pages/AssetLibrary';
+import Analytics from './pages/Analytics';
+import Docs from './pages/Docs';
 
 const pages: Record<string, React.ComponentType> = {
   dashboard: Dashboard,
   marketing: Marketing,
-  recruit: Recruit,
   brand: BrandIQ,
   studio: ContentStudio,
   calendar: Calendar,
-  automation: Automation,
+  campaigns: Campaigns,
+  approvals: Approvals,
+  assets: AssetLibrary,
+  analytics: Analytics,
+  recruit: Recruit,
   support: Support,
+  automation: Automation,
   builder: Builder,
   mcp: MCPConnect,
   architecture: Architecture,
   settings: Settings,
+  docs: Docs,
 };
 
 export default function App() {
