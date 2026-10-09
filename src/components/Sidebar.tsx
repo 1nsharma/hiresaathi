@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import {
   LayoutDashboard, Megaphone, UserCheck, Brain, PenTool,
   CalendarDays, Zap, MessageSquare, Code2, Network,
-  Plug, Settings, ChevronLeft, ChevronRight, Sparkles
+  Plug, Settings, ChevronLeft, ChevronRight, Sparkles,
+  BarChart3, FolderOpen, CheckCircle2, BookOpen, Target
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -14,22 +15,28 @@ interface SidebarProps {
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, group: 'main' },
-  { id: 'marketing', label: 'AI Marketing', icon: Megaphone, group: 'modules' },
-  { id: 'brand', label: 'Brand IQ', icon: Brain, group: 'modules' },
-  { id: 'studio', label: 'Content Studio', icon: PenTool, group: 'modules' },
-  { id: 'calendar', label: 'Calendar', icon: CalendarDays, group: 'modules' },
+  { id: 'marketing', label: 'AI Marketing', icon: Megaphone, group: 'marketing' },
+  { id: 'brand', label: 'Brand IQ', icon: Brain, group: 'marketing' },
+  { id: 'studio', label: 'Content Studio', icon: PenTool, group: 'marketing' },
+  { id: 'calendar', label: 'Calendar', icon: CalendarDays, group: 'marketing' },
+  { id: 'campaigns', label: 'Campaigns', icon: Target, group: 'marketing' },
+  { id: 'approvals', label: 'Approvals', icon: CheckCircle2, group: 'marketing' },
+  { id: 'assets', label: 'Asset Library', icon: FolderOpen, group: 'marketing' },
+  { id: 'analytics', label: 'Analytics', icon: BarChart3, group: 'marketing' },
   { id: 'recruit', label: 'AI Recruit', icon: UserCheck, group: 'modules' },
   { id: 'support', label: 'AI Support', icon: MessageSquare, group: 'modules' },
   { id: 'automation', label: 'Automation', icon: Zap, group: 'modules' },
   { id: 'builder', label: 'AI Builder', icon: Code2, group: 'modules' },
   { id: 'mcp', label: 'MCP Connect', icon: Plug, group: 'modules' },
   { id: 'architecture', label: 'Architecture', icon: Network, group: 'system' },
+  { id: 'docs', label: 'Docs & Setup', icon: BookOpen, group: 'system' },
   { id: 'settings', label: 'Settings', icon: Settings, group: 'system' },
 ];
 
 export default function Sidebar({ activePage, setActivePage, isOpen, setIsOpen }: SidebarProps) {
   const groups = [
     { key: 'main', label: '' },
+    { key: 'marketing', label: 'AI Marketing' },
     { key: 'modules', label: 'AI Modules' },
     { key: 'system', label: 'System' },
   ];
@@ -77,7 +84,7 @@ export default function Sidebar({ activePage, setActivePage, isOpen, setIsOpen }
                   <button
                     key={item.id}
                     onClick={() => setActivePage(item.id)}
-                    className={`relative flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm transition-all duration-200 group ${
+                    className={`relative flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-all duration-200 group ${
                       isActive
                         ? 'bg-primary/15 text-primary-light'
                         : 'text-text-secondary hover:bg-surface-lighter hover:text-text-primary'
@@ -86,16 +93,16 @@ export default function Sidebar({ activePage, setActivePage, isOpen, setIsOpen }
                     {isActive && (
                       <motion.div
                         layoutId="activeNav"
-                        className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-primary rounded-full"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 bg-primary rounded-full"
                         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                       />
                     )}
-                    <item.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-primary-light' : ''}`} />
+                    <item.icon className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-primary-light' : ''}`} />
                     {isOpen && (
                       <motion.span
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="whitespace-nowrap"
+                        className="whitespace-nowrap text-xs"
                       >
                         {item.label}
                       </motion.span>
