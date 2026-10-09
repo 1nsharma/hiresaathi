@@ -15,6 +15,16 @@ HireSaathi AI is a comprehensive enterprise-grade AI platform combining **AI Mar
 
 This is a **complete frontend application** with all modules implemented, featuring a modern dark theme UI with smooth animations and responsive design.
 
+### 🔌 Composio Integration
+
+**NEW**: Full Composio integration enabling AI agents to connect with **250+ real-world tools** (GitHub, Gmail, Slack, Notion, HubSpot, etc.) and execute actions automatically.
+
+- ✅ 40+ pre-configured tool integrations
+- ✅ 8 specialized AI agents with tool orchestration
+- ✅ Real-time execution logging
+- ✅ OAuth-based tool authentication
+- ✅ Persistent connection management
+
 ---
 
 ## ✨ Features
@@ -90,6 +100,7 @@ Output will be in the `dist/` directory.
 | **Framer Motion** | Animations |
 | **Lucide React** | Icons |
 | **Vite** | Build Tool |
+| **Composio** | Tool Integration (250+ apps) |
 
 ---
 
