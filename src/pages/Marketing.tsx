@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import {
   Search, PenTool, Share2, Mail, Megaphone, FileText,
   Image, Video, BarChart3, ArrowRight, Sparkles, Filter,
-  Star, TrendingUp, Clock, CheckCircle2
+  Star, TrendingUp, Clock, CheckCircle2, Zap, AlertCircle
 } from 'lucide-react';
+import { AGENT_TOOL_CONFIGS } from '../lib/composio';
+import { useToolStore } from '../lib/toolStore';
 
 const container = {
   hidden: { opacity: 0 },
@@ -28,29 +30,37 @@ const categories = [
 ];
 
 const agents = [
-  { name: 'SEO Blog Writer', category: 'Content Marketing', desc: 'Generate SEO-optimized long-form blog posts with keywords, meta tags and social snippets', rating: 4.9, uses: '12.4K', color: 'from-purple-500 to-pink-500' },
-  { name: 'LinkedIn Post Creator', category: 'Social Media', desc: 'Craft engaging LinkedIn posts with hooks, storytelling and professional tone', rating: 4.8, uses: '9.2K', color: 'from-blue-500 to-cyan-500' },
-  { name: 'Email Subject Line Generator', category: 'Lifecycle & Email', desc: 'Generate high-converting email subject lines with A/B variants', rating: 4.7, uses: '8.1K', color: 'from-green-500 to-emerald-500' },
-  { name: 'Product Launch Campaign', category: 'Product Marketing', desc: 'Create comprehensive launch campaigns across all channels', rating: 4.9, uses: '5.6K', color: 'from-amber-500 to-orange-500' },
-  { name: 'Press Release Writer', category: 'PR & Communications', desc: 'Professional press releases following AP style with media-ready format', rating: 4.6, uses: '3.2K', color: 'from-rose-500 to-red-500' },
-  { name: 'Meta Title & Description', category: 'SEO & Search', desc: 'Generate optimized meta titles and descriptions for any page type', rating: 4.8, uses: '7.8K', color: 'from-indigo-500 to-violet-500' },
-  { name: 'Instagram Caption Writer', category: 'Social Media', desc: 'Engaging captions with hashtags, emojis and call-to-actions', rating: 4.7, uses: '11.3K', color: 'from-pink-500 to-rose-500' },
-  { name: 'Cold Email Sequence', category: 'Lifecycle & Email', desc: 'Multi-step cold email sequences with personalization tokens', rating: 4.5, uses: '6.4K', color: 'from-teal-500 to-green-500' },
-  { name: 'Google Search Ads', category: 'Ads & Sales', desc: 'High-performing search ad copy with extensions and CTAs', rating: 4.6, uses: '4.9K', color: 'from-yellow-500 to-amber-500' },
-  { name: 'Video Script Writer', category: 'Creative & Multimedia', desc: 'YouTube, TikTok and Reels scripts with hooks and retention tactics', rating: 4.8, uses: '7.1K', color: 'from-red-500 to-pink-500' },
-  { name: 'Case Study Generator', category: 'Content Marketing', desc: 'Data-driven case studies with problem-solution-result framework', rating: 4.7, uses: '3.8K', color: 'from-cyan-500 to-blue-500' },
-  { name: 'Carousel Outline Creator', category: 'Social Media', desc: 'Slide-by-slide carousel outlines for LinkedIn and Instagram', rating: 4.9, uses: '8.5K', color: 'from-violet-500 to-purple-500' },
+  { name: 'SEO Blog Writer', agentId: 'seo-blog-writer', category: 'Content Marketing', desc: 'Generate SEO-optimized long-form blog posts with keywords, meta tags and social snippets', rating: 4.9, uses: '12.4K', color: 'from-purple-500 to-pink-500' },
+  { name: 'Social Media Manager', agentId: 'social-media-manager', category: 'Social Media', desc: 'Craft engaging LinkedIn posts with hooks, storytelling and professional tone', rating: 4.8, uses: '9.2K', color: 'from-blue-500 to-cyan-500' },
+  { name: 'Email Campaign Agent', agentId: 'email-campaign-agent', category: 'Lifecycle & Email', desc: 'Generate high-converting email subject lines with A/B variants', rating: 4.7, uses: '8.1K', color: 'from-green-500 to-emerald-500' },
+  { name: 'Lead Qualification Agent', agentId: 'lead-qualification-agent', category: 'Product Marketing', desc: 'Create comprehensive launch campaigns across all channels', rating: 4.9, uses: '5.6K', color: 'from-amber-500 to-orange-500' },
+  { name: 'Press Release Writer', agentId: 'content-repurposer', category: 'PR & Communications', desc: 'Professional press releases following AP style with media-ready format', rating: 4.6, uses: '3.2K', color: 'from-rose-500 to-red-500' },
+  { name: 'Analytics Reporter', agentId: 'analytics-reporter', category: 'SEO & Search', desc: 'Generate optimized meta titles and descriptions for any page type', rating: 4.8, uses: '7.8K', color: 'from-indigo-500 to-violet-500' },
+  { name: 'Instagram Caption Writer', agentId: 'social-media-manager', category: 'Social Media', desc: 'Engaging captions with hashtags, emojis and call-to-actions', rating: 4.7, uses: '11.3K', color: 'from-pink-500 to-rose-500' },
+  { name: 'Cold Email Sequence', agentId: 'email-campaign-agent', category: 'Lifecycle & Email', desc: 'Multi-step cold email sequences with personalization tokens', rating: 4.5, uses: '6.4K', color: 'from-teal-500 to-green-500' },
+  { name: 'Google Search Ads', agentId: 'social-media-manager', category: 'Ads & Sales', desc: 'High-performing search ad copy with extensions and CTAs', rating: 4.6, uses: '4.9K', color: 'from-yellow-500 to-amber-500' },
+  { name: 'Video Script Writer', agentId: 'content-repurposer', category: 'Creative & Multimedia', desc: 'YouTube, TikTok and Reels scripts with hooks and retention tactics', rating: 4.8, uses: '7.1K', color: 'from-red-500 to-pink-500' },
+  { name: 'Candidate Sourcer', agentId: 'candidate-sourcer', category: 'Content Marketing', desc: 'Data-driven case studies with problem-solution-result framework', rating: 4.7, uses: '3.8K', color: 'from-cyan-500 to-blue-500' },
+  { name: 'Support Ticket Agent', agentId: 'support-ticket-agent', category: 'Social Media', desc: 'Slide-by-slide carousel outlines for LinkedIn and Instagram', rating: 4.9, uses: '8.5K', color: 'from-violet-500 to-purple-500' },
 ];
 
 export default function Marketing() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All Agents');
+  const { isConnected } = useToolStore();
 
   const filteredAgents = agents.filter(a =>
     (activeCategory === 'All Agents' || a.category === activeCategory) &&
     (a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
      a.desc.toLowerCase().includes(searchQuery.toLowerCase()))
   );
+
+  const getAgentToolStatus = (agentId: string) => {
+    const config = AGENT_TOOL_CONFIGS.find(c => c.agentId === agentId);
+    if (!config) return { ready: false, total: 0, connected: 0 };
+    const connected = config.requiredTools.filter(t => isConnected(t)).length;
+    return { ready: connected === config.requiredTools.length, total: config.requiredTools.length, connected };
+  };
 
   return (
     <div className="p-6 lg:p-8 max-w-[1400px] mx-auto">
@@ -180,6 +190,25 @@ export default function Marketing() {
                         {agent.uses} uses
                       </span>
                     </div>
+                    {/* Tool Status */}
+                    {(() => {
+                      const status = getAgentToolStatus(agent.agentId);
+                      return (
+                        <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-border/30">
+                          {status.ready ? (
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-success/10 text-success flex items-center gap-1">
+                              <Zap className="w-2.5 h-2.5" />
+                              Ready · {status.connected}/{status.total} tools
+                            </span>
+                          ) : (
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-warning/10 text-warning flex items-center gap-1">
+                              <AlertCircle className="w-2.5 h-2.5" />
+                              {status.connected}/{status.total} tools connected
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
               </motion.div>

@@ -276,7 +276,53 @@ export default function Settings() {
             </motion.div>
           )}
 
-          {(activeSection === 'appearance' || activeSection === 'integrations' || activeSection === 'api-keys' || activeSection === 'data') && (
+          {activeSection === 'api-keys' && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-card rounded-xl p-6">
+              <h3 className="font-semibold text-text-primary mb-4">API Keys</h3>
+              <div className="space-y-4">
+                <div className="p-4 rounded-lg bg-surface/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <div>
+                      <p className="text-sm font-medium text-text-primary">Composio API Key</p>
+                      <p className="text-xs text-text-muted">Connect 250+ tools for AI agents</p>
+                    </div>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-success/10 text-success">Active</span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-3">
+                    <input
+                      type="password"
+                      value="••••••••••••••••••••"
+                      readOnly
+                      className="flex-1 px-3 py-2 rounded-lg bg-surface border border-border text-sm text-text-primary outline-none"
+                    />
+                    <button className="px-3 py-2 rounded-lg bg-primary/10 text-primary-light text-xs font-medium hover:bg-primary/20 transition-colors">
+                      Update
+                    </button>
+                  </div>
+                  <p className="text-[10px] text-text-muted mt-2">
+                    Get your API key from{' '}
+                    <a href="https://app.composio.dev" target="_blank" rel="noopener noreferrer" className="text-primary-light hover:underline">
+                      app.composio.dev
+                    </a>
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-surface/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <div>
+                      <p className="text-sm font-medium text-text-primary">OpenAI API Key</p>
+                      <p className="text-xs text-text-muted">For AI content generation</p>
+                    </div>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-warning/10 text-warning">Not Set</span>
+                  </div>
+                  <button className="mt-2 px-3 py-1.5 rounded-lg bg-primary/10 text-primary-light text-xs font-medium hover:bg-primary/20 transition-colors">
+                    Configure
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {(activeSection === 'appearance' || activeSection === 'integrations' || activeSection === 'data') && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-card rounded-xl p-6">
               <h3 className="font-semibold text-text-primary mb-4">{sections.find(s => s.id === activeSection)?.label}</h3>
               <div className="text-center py-8">
