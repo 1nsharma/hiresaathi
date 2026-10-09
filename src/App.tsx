@@ -9,6 +9,10 @@ import BrandIQ from './pages/BrandIQ';
 import ContentStudio from './pages/ContentStudio';
 import Calendar from './pages/Calendar';
 import Automation from './pages/Automation';
+import Support from './pages/Support';
+import Builder from './pages/Builder';
+import MCPConnect from './pages/MCPConnect';
+import Settings from './pages/Settings';
 
 const pages: Record<string, React.ComponentType> = {
   dashboard: Dashboard,
@@ -18,7 +22,11 @@ const pages: Record<string, React.ComponentType> = {
   studio: ContentStudio,
   calendar: Calendar,
   automation: Automation,
+  support: Support,
+  builder: Builder,
+  mcp: MCPConnect,
   architecture: Architecture,
+  settings: Settings,
 };
 
 export default function App() {
@@ -42,7 +50,7 @@ export default function App() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.2 }}
             className="min-h-full"
           >
             <ActiveComponent />
